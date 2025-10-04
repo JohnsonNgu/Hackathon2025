@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dpbufnh6sv4oi"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(128, 128)
+offset_right = 8.0
+offset_bottom = 8.0
+action_mode = 0
+
+[node name="icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stretch_mode = 5
+
+[node name="overlay_dim" type="ColorRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="lock_icon" type="TextureRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stretch_mode = 5
