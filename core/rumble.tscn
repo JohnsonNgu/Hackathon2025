@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn3nj1jl7mfo5"]
+
+[ext_resource type="Script" uid="uid://bgg4wd6up45" path="res://rumble.gd" id="1_vo1cb"]
+[ext_resource type="Texture2D" uid="uid://dy8y5st5oikqs" path="res://assets/icon.svg" id="2_ky1j2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n1fv5"]
+size = Vector2(128, 128)
+
+[node name="rumble" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_vo1cb")
+flamethrower = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(-118, -3.9999847),"rotation":0.0,"scale":Vector2(0.011935444, 0.011935445),"skew":0.0,"texture":Resource("res://assets/Knife_PNG_Clip_Art-2697.png"),"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":null)
+
+harpoon = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(-118, -3.9999847),"rotation":0.0,"scale":Vector2(0.011935444, 0.011935445),"skew":0.0,"texture":Resource("res://assets/Knife_PNG_Clip_Art-2697.png"),"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":null)
+
+cannon = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(-118, -3.9999847),"rotation":0.0,"scale":Vector2(0.011935444, 0.011935445),"skew":0.0,"texture":Resource("res://assets/Knife_PNG_Clip_Art-2697.png"),"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":null)
+
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ky1j2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n1fv5")
+
+[node name="weapon_cooldown" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="weapon_cooldown" to="." method="_on_weapon_cooldown_timeout"]
