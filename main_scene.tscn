@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bpvy5ooeev3pv"]
+[gd_scene load_steps=10 format=3 uid="uid://bpvy5ooeev3pv"]
 
-[ext_resource type="Texture2D" uid="uid://dy8y5st5oikqs" path="res://assets/icon.svg" id="1_2c62f"]
-[ext_resource type="Texture2D" uid="uid://bhmn1e66ltba0" path="res://assets/mite.png" id="2_gyfs4"]
+[ext_resource type="PackedScene" uid="uid://434crqvfl0mw" path="res://core/enemy.tscn" id="2_2c62f"]
+[ext_resource type="PackedScene" uid="uid://bn3nj1jl7mfo5" path="res://core/rumble.tscn" id="2_gyfs4"]
+[ext_resource type="PackedScene" uid="uid://c1xhu6eia56jl" path="res://core/projectile.tscn" id="3_gyfs4"]
 
 [sub_resource type="Gradient" id="Gradient_d5x1h"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.41896397, 0.15502542, 0, 1)
+colors = PackedColorArray(0.39876714, 0.5411656, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8mm7a"]
 gradient = SubResource("Gradient_d5x1h")
@@ -26,29 +27,32 @@ gradient = SubResource("Gradient_66tet")
 
 [node name="Node2D" type="Node2D"]
 
-[node name="background" type="Sprite2D" parent="."]
+[node name="Game_Manager" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="background" type="Sprite2D" parent="Game_Manager"]
 scale = Vector2(20, 11.222)
 texture = SubResource("GradientTexture2D_8mm7a")
 centered = false
 
-[node name="underground" type="Sprite2D" parent="."]
+[node name="underground" type="Sprite2D" parent="Game_Manager"]
 position = Vector2(-4.999999, 485)
 scale = Vector2(20.109375, 3.6875002)
 texture = SubResource("GradientTexture2D_nfk4m")
 centered = false
 
-[node name="floor" type="Sprite2D" parent="."]
+[node name="floor" type="Sprite2D" parent="Game_Manager"]
 position = Vector2(0, 487)
 scale = Vector2(20, 0.359375)
 texture = SubResource("GradientTexture2D_7ycvg")
 centered = false
 
-[node name="bumble" type="Sprite2D" parent="."]
-position = Vector2(640, 490)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("1_2c62f")
+[node name="enemy" parent="Game_Manager" instance=ExtResource("2_2c62f")]
+position = Vector2(333, 445)
 
-[node name="Mite" type="Sprite2D" parent="."]
-position = Vector2(277, 434.99997)
-scale = Vector2(0.12267658, 0.122676566)
-texture = ExtResource("2_gyfs4")
+[node name="rumble" parent="Game_Manager" instance=ExtResource("2_gyfs4")]
+unique_name_in_owner = true
+position = Vector2(640, 490)
+flamethrower = ExtResource("3_gyfs4")
+harpoon = ExtResource("3_gyfs4")
+cannon = ExtResource("3_gyfs4")
