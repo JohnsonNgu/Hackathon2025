@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dm1taxdlv0v06"]
+
+[ext_resource type="Script" uid="uid://dh280x3nsphdx" path="res://core/enemies/enemy.gd" id="1_ptfhc"]
+[ext_resource type="Texture2D" uid="uid://b3g4foboo4qrv" path="res://assets/enemies/void_scuttler.png" id="2_uy4y5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eaiur"]
+size = Vector2(83, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbio"]
+size = Vector2(78.875, 42.5)
+
+[node name="enemy" type="Node2D"]
+script = ExtResource("1_ptfhc")
+health = 25
+speed = 45
+gold_value = 20
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.123, 0.123)
+texture = ExtResource("2_uy4y5")
+flip_h = true
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="hitbox" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(-1.5, -3)
+shape = SubResource("RectangleShape2D_eaiur")
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="hurtbox" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(41.5625, 1)
+shape = SubResource("RectangleShape2D_rkbio")
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

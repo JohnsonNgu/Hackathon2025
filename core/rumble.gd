@@ -48,16 +48,8 @@ func fire():
 	
 func cycle_weapon():
 	weapon = (weapon + 1) % Weapon.size() as Weapon
-	print("Cylce to ", weapon)
-	#match weapon:
-		#Weapon.FLAMETHROWER:
-			#cooldown = ftcooldown * changes
-		#Weapon.HARPOON:
-			#cooldown = hcooldown * changes
-		#Weapon.CANNON:
-			#cooldown = ccooldown * changes
-		#_:
-			#printerr("How did we get here")
+	if (Shop.get_upgrade_level(Weapon.keys()[weapon].to_lower()) == 0):
+		cycle_weapon()
 
 func _on_weapon_cooldown_timeout() -> void:
 	weapon_on_cooldown = false

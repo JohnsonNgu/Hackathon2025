@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://ce3g8x07jwlpf"]
+
+[ext_resource type="Script" uid="uid://dh280x3nsphdx" path="res://core/enemies/enemy.gd" id="1_h5fnv"]
+[ext_resource type="Texture2D" uid="uid://y33arul4bv7h" path="res://assets/enemies/blue_void.png" id="2_eg0da"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eaiur"]
+size = Vector2(315, 222)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbio"]
+size = Vector2(97.75, 221.25)
+
+[node name="enemy" type="Node2D"]
+script = ExtResource("1_h5fnv")
+health = 15
+speed = 75
+gold_value = 40
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_eg0da")
+flip_h = true
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="hitbox" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_eaiur")
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="hurtbox" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(181, 0)
+shape = SubResource("RectangleShape2D_rkbio")
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

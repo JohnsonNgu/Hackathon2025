@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://iavhyplv0yhj"]
+
+[ext_resource type="Script" uid="uid://dh280x3nsphdx" path="res://core/enemies/enemy.gd" id="1_cj1g2"]
+[ext_resource type="Texture2D" uid="uid://daek2ccu0ruei" path="res://assets/enemies/voidling.png" id="2_hnxpu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eaiur"]
+size = Vector2(47.25, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbio"]
+size = Vector2(44.875, 28.25)
+
+[node name="enemy" type="Node2D"]
+position = Vector2(0, 15)
+script = ExtResource("1_cj1g2")
+speed = 150
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hnxpu")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="hitbox" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(2, -5)
+shape = SubResource("RectangleShape2D_eaiur")
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="hurtbox" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(22, -5)
+shape = SubResource("RectangleShape2D_rkbio")
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

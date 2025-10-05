@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cfnav4bgk1rk"]
 
-[ext_resource type="Script" uid="uid://pusnp2eheou7" path="res://core/projectile.gd" id="1_tukqe"]
+[ext_resource type="Script" uid="uid://pusnp2eheou7" path="res://core/projectiles/projectile.gd" id="1_tukqe"]
 [ext_resource type="Texture2D" uid="uid://do3xto6ikxkfx" path="res://assets/Projectiles/harpoon_projectile.png" id="2_hbjf3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8q2pr"]

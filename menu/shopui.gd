@@ -1,85 +1,63 @@
 extends Node
 
-@onready
-var player_money = %Game_Manager.player_money
-
-var upgrades = {
-	"flamethrower": {"level": 0, "max_level": 3, "costs": [100, 200, 500], "description": ["Costs: 100 Gold\nRumble’s Trusty Fire Splitter, great for getting them off of you!", "Costs: 200 Gold\nRumble uses double the fuel to increase the size of his fire! (Slightly more dmg &  Larger radius)", "Costs: 500 Gold\nThe metal is so hot it created an aura of fire! (Flame ring surrounds Rumble's mech)"]},
-	"harpoon": {"level": 0, "max_level": 3, "costs": [100, 200, 500], "description": ["Costs: 100 Gold\nRumble Shoot a mid-range missile like harpoon that hits the first enemy it collides with", "Costs 200 Gold\nRumble modifies his harpoon to be ready and loaded faster, while polishing the tips (increases attack speed and dmg)", "Costs 500 Gold\nIt’s like 2 birds with 1 stone, except its monsters, and with a harpoon (Adds Pierce to hit 2 targets"]},
-	"cannon": {"level": 0, "max_level": 3, "costs": [100, 200, 500], "description": ["Costs: 100 Gold\nRumble ‘borrowed’ Tristana’s gun and uses its long range to take down foes", "Costs: 200 Gold\nRumble Remembered to turn the safety off, making Tristana’s cannon fire much faster (Increases attack speed)", "Costs: 500 Gold\nRumbles uses Tristana’s bombs instead, doing splash dmg to nearby enemies (Hits do Splash Dmg)"]},
-	"equilizer": {"level": 0, "max_level": 3, "costs": [100, 200, 500], "description": ["Costs: 100 Gold\nRumble periodically launches missiles from his mech, damaging any enemies (every 15 seconds, fire 4 missiles, 2 left and 2 right)", "Costs: 200 Gold\nRumble adds a special propane mix to his missiles (increases damage)", "Costs: 500 Gold\nTime for a Bandle City Beatdown! (Add a missile to the left and right)"]},
-	"shield": {"level": 0, "max_level": 3, "costs": [100, 200, 500], "description": ["Costs: 100 Gold\nRumble defies the laws of physics and generates a shield after not taking damage (gain a shield after not taking damage for 15 seconds)", "Costs: 200 Gold\nRumble fixes one screw to make his shield more stable (Increases the shielding Amount)", "Costs: 500 Gold\n Why are you hitting yourself? Why are you hitting yourself? (Adds reflective dmg to the shield)"]},
-	"mines": {"level": 0, "max_level": 3, "costs": [100, 200, 500], "description": ["Costs: 100 Gold\nTeemo wants Rumble to believe hes winning, but knows he’ll be overunned, so he gave him some shock mines without him noticing (mines are placed on the field that stun enemies)", "Costs 200: Gold\nTeemo secretly upgrades the mines to make them Shocking(adds stun duration)", "Costs 500: Gold\n Teemo brings out the mines from his bandle’s bag, they are volitile (mines do Splash Dmg)"]},
-}
-
 @onready var active_grid = $GUI/VBoxContainer/HBoxContainer/Active/GridContainer
 @onready var passive_grid = $GUI/VBoxContainer/HBoxContainer/Passive/GridContainer
-@onready var gold = $GUI/VBoxContainer/HBoxContainer2/Gold
+@onready var gold_label = $GUI/VBoxContainer/HBoxContainer2/Gold
+
+func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	var active_keys = ["flamethrower", "harpoon", "cannon"]
+	var passive_keys = ["equilizer", "shield", "mines"]
+	
+	# Setup upgrade buttons
+	setup_upgrade_column(active_grid, active_keys, "active")
+	setup_upgrade_column(passive_grid, passive_keys, "passive")
+	
+	# Connect to Shop signals for reactive updates
+	Shop.money_changed.connect(_on_money_changed)
+	Shop.upgrade_purchased.connect(_on_upgrade_purchased)
+	
+	# Initial UI update
+	update_ui()
 
 func _process(delta: float) -> void:
+	# Close shop with Escape key
 	if Input.is_action_just_pressed("escape"):
 		self.visible = false
 		get_tree().paused = false
 
-func _ready():
-	
-	process_mode = Node.PROCESS_MODE_ALWAYS
-
-	var active_keys = ["flamethrower", "harpoon", "cannon"]
-	var passive_keys = ["equilizer", "shield", "mines"]
-	
-	get_node("GUI/VBoxContainer/HBoxContainer2/Gold").text = "Gold: " + str(player_money)
-	
-	# Setup active upgrades (6 buttons total: base + 2 upgrades each)
-	setup_upgrade_column(active_grid, active_keys, "active")
-	
-	# Setup passive upgrades (6 buttons total: base + 2 upgrades each)
-	setup_upgrade_column(passive_grid, passive_keys, "passive")
-	
-	# Initial update of all button states
-	update_all_buttons()
-
 func setup_upgrade_column(container: HBoxContainer, keys: Array, type: String):
-	# Each weapon has its own child container (Flamethrower, Harpoon, etc.)
-	# and inside each is a GridContainer with 3 upgrade buttons
-	
 	for i in range(keys.size()):
 		var key = keys[i]
-		
 		var weapon_container = container.get_child(i)
-
-		# Find the GridContainer inside this weapon container
-		var grid_container = null
-		var count = 1;
+		
+		var count = 1
 		for button in weapon_container.get_children():
-					
 			# Store metadata
 			button.set_meta("upgrade_key", key)
 			button.set_meta("upgrade_level", count)
 			button.set_meta("type", type)
 			
-
-			
 			# Connect signal
 			button.pressed.connect(_on_upgrade_button_pressed.bind(button))
 			
-			# Setup button structure for visual states
+			# Setup button visuals
 			setup_button_visuals(button, key, count)
 			
 			count += 1
-			
+
 func setup_button_visuals(button: Button, key: String, level: int):
-	
 	var icon = button.get_node_or_null("icon")
 	var overlay_dim = button.get_node_or_null("overlay_dim")
 	var lock_icon = button.get_node_or_null("lock_icon")
 	var tooltip = null
 	
-	if (button.get_meta("type") == "active"):
+	if button.get_meta("type") == "active":
 		tooltip = button.get_node_or_null("tooltip_active")
 	else:
 		tooltip = button.get_node_or_null("tooltip_passive")
-
+	
 	if icon:
 		var icon_path = "res://assets/shop_icons/%s_%d.png" % [key, level]
 		if ResourceLoader.exists(icon_path):
@@ -91,51 +69,38 @@ func setup_button_visuals(button: Button, key: String, level: int):
 	
 	if lock_icon:
 		lock_icon.visible = false
-		
+	
 	if tooltip:
 		tooltip.visible = false
 		var label_tooltip = tooltip.get_node_or_null("text")
-		label_tooltip.text = upgrades[key]["description"][level-1]
+		if label_tooltip:
+			var upgrade_data = Shop.get_upgrade_data(key)
+			if upgrade_data.has("description"):
+				label_tooltip.text = upgrade_data["description"][level - 1]
 
 func _on_upgrade_button_pressed(button: Button):
 	var key = button.get_meta("upgrade_key")
 	var target_level = button.get_meta("upgrade_level")
-	var data = upgrades[key]
 	
-	# Check if this upgrade is already purchased
-	if data["level"] >= target_level:
-		print(key, "level", target_level, "already purchased!")
-		return
-	
-	# Check if this is the next upgrade in sequence
-	if data["level"] != target_level - 1:
-		print("Must purchase previous upgrades first!")
-		return
-	
-	# Check if already at max level
-	if data["level"] >= data["max_level"]:
-		print(key, "is already fully upgraded!")
-		return
-	
-	var cost = data["costs"][target_level-1]
-	
-	# Check if player has enough money
-	if player_money < cost:
-		print("Not enough money for", key, "- Need:", cost, "Have:", player_money)
-		return
-	
-	# Purchase logic
-	player_money -= cost
-	data["level"] += 1
-	get_node("GUI/VBoxContainer/HBoxContainer2/Gold").text = "Gold: " + str(player_money)
-	print("Upgraded", key, "to level", data["level"], "for", cost, "gold")
-	print("Remaining money:", player_money)
-	
-	# Update all buttons to reflect new state
+	# Attempt purchase through Shop singleton
+	# All validation and money deduction happens in Shop
+	Shop.purchase_upgrade(key, target_level)
+
+func _on_money_changed(new_amount: int):
+	# Automatically called when Shop.player_money changes
+	gold_label.text = "Gold: " + str(new_amount)
+	update_all_buttons()
+
+func _on_upgrade_purchased(upgrade_key: String, new_level: int):
+	# Automatically called when an upgrade is purchased
+	update_all_buttons()
+
+func update_ui():
+	# Manually refresh the entire UI from Shop data
+	gold_label.text = "Gold: " + str(Shop.player_money)
 	update_all_buttons()
 
 func update_all_buttons():
-	# Update both active and passive grids
 	for grid in active_grid.get_children():
 		for button in grid.get_children():
 			if button is Button:
@@ -149,31 +114,30 @@ func update_all_buttons():
 func update_button_state(button: Button):
 	var key = button.get_meta("upgrade_key")
 	var target_level = button.get_meta("upgrade_level")
-	var data = upgrades[key]
+	var data = Shop.get_upgrade_data(key)
 	var current_level = data["level"]
 	
 	var icon = button.get_node_or_null("icon")
 	var overlay_dim = button.get_node_or_null("overlay_dim")
 	var lock_icon = button.get_node_or_null("lock_icon")
-
 	
-	# Determine button state
+	# Determine button state based on Shop data
 	var is_purchased = current_level >= target_level
 	var is_next_upgrade = current_level == target_level - 1
 	var is_locked = current_level < target_level
-	var can_afford = is_next_upgrade and player_money >= data["costs"][target_level-1]
+	var can_afford = is_next_upgrade and Shop.player_money >= data["costs"][target_level - 1]
 	
-	# State 1: Already purchased (show normally, disabled)
+	# State 1: Already purchased (green overlay, disabled)
 	if is_purchased:
 		if overlay_dim:
 			overlay_dim.visible = true
-			overlay_dim.color = "00ff0080"
+			overlay_dim.color = Color("00ff0080")
 		if lock_icon:
 			lock_icon.visible = false
 		if icon:
-			icon.modulate = Color(1, 1, 1, 1)  # Full brightness
+			icon.modulate = Color(1, 1, 1, 1)
 		button.disabled = true
-		button.modulate = Color(0.8, 1, 0.8)  # Slight green tint to show owned
+		button.modulate = Color(0.8, 1, 0.8)
 	
 	# State 2: Next upgrade - can afford (full brightness, clickable)
 	elif is_next_upgrade and can_afford:
@@ -182,11 +146,11 @@ func update_button_state(button: Button):
 		if lock_icon:
 			lock_icon.visible = false
 		if icon:
-			icon.modulate = Color(1, 1, 1, 1)  # Full brightness
+			icon.modulate = Color(1, 1, 1, 1)
 		button.disabled = false
 		button.modulate = Color(1, 1, 1)
 	
-	# State 3: Next upgrade - cannot afford (dimmed, not clickable)
+	# State 3: Next upgrade - cannot afford (dimmed, disabled)
 	elif is_next_upgrade and not can_afford:
 		if overlay_dim:
 			overlay_dim.visible = true
@@ -197,28 +161,13 @@ func update_button_state(button: Button):
 		button.disabled = true
 		button.modulate = Color(1, 1, 1)
 	
-	# State 4: Locked (not next in sequence - show lock icon)
+	# State 4: Locked (lock icon, desaturated, disabled)
 	elif is_locked:
 		if overlay_dim:
 			overlay_dim.visible = true
 		if lock_icon:
 			lock_icon.visible = true
 		if icon:
-			icon.modulate = Color(0.5, 0.5, 0.5, 1)  # Desaturated
+			icon.modulate = Color(0.5, 0.5, 0.5, 1)
 		button.disabled = true
 		button.modulate = Color(1, 1, 1)
-
-# Optional: Function to add money (for testing)
-func add_money(amount: int):
-	player_money += amount
-	print("Added", amount, "gold. Total:", player_money)
-	update_all_buttons()
-
-# Optional: Function to reset all upgrades (for testing)
-func reset_upgrades():
-	for key in upgrades.keys():
-		upgrades[key]["level"] = 0
-	update_all_buttons()
-
-func _process(delta: float):
-	player_money = %Game_Manager.player_money

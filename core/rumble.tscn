@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bn3nj1jl7mfo5"]
+[gd_scene load_steps=7 format=3 uid="uid://bn3nj1jl7mfo5"]
 
 [ext_resource type="Script" uid="uid://bgg4wd6up45" path="res://core/rumble.gd" id="1_vo1cb"]
 [ext_resource type="Texture2D" uid="uid://dy8y5st5oikqs" path="res://assets/icon.svg" id="2_ky1j2"]
-[ext_resource type="PackedScene" uid="uid://c1xhu6eia56jl" path="res://core/projectile.tscn" id="2_vo1cb"]
+[ext_resource type="PackedScene" uid="uid://b6qe7sqgurvsi" path="res://core/projectiles/flamethrower.tscn" id="2_u3d5i"]
+[ext_resource type="PackedScene" uid="uid://c1xhu6eia56jl" path="res://core/projectiles/projectile.tscn" id="2_vo1cb"]
+[ext_resource type="PackedScene" uid="uid://cfnav4bgk1rk" path="res://core/projectiles/harpoon.tscn" id="3_u3d5i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n1fv5"]
 size = Vector2(128, 128)
@@ -10,8 +12,8 @@ size = Vector2(128, 128)
 [node name="rumble" type="Area2D"]
 collision_mask = 0
 script = ExtResource("1_vo1cb")
-flamethrower = ExtResource("2_vo1cb")
-harpoon = ExtResource("2_vo1cb")
+flamethrower = ExtResource("2_u3d5i")
+harpoon = ExtResource("3_u3d5i")
 cannon = ExtResource("2_vo1cb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
