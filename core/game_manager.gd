@@ -9,6 +9,8 @@ extends Node2D
 
 signal enemy_hit(enemy:Node2D)
 
+@onready var gold_label = $gold_label
+
 #var player_money = 100
 enum Enemy_Type{FISH, VOIDLING, GRUB, SCUTTLE, RED, BLUE}
 var voidling_count = 0
@@ -32,9 +34,9 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("show_shop"):
 		shop_scene.visible = true
 		get_tree().paused = true
-	#if Input.is_action_just_pressed("escape") and !shop_scene.visible:
-		#get_tree().paused = true
-	#if Input.is
+	
+	if gold_label:
+		update_label_gold()
 
 
 func _on_enemy_spawn_timeout() -> void:
@@ -97,3 +99,6 @@ func enemy_death(enemy:Node2D):
 
 func enemy_attack(enemy:Node2D):
 	emit_signal("enemy_hit", enemy)
+
+func update_label_gold():
+	gold_label.text = "Gold: " + str(Shop.player_money) + "\nShop [p]"

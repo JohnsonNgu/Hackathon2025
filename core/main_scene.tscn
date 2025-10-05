@@ -10,12 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://dm1taxdlv0v06" path="res://core/enemies/void_scuttler.tscn" id="5_a313s"]
 [ext_resource type="PackedScene" uid="uid://tqgky5r1hdnb" path="res://core/projectiles/cannon.tscn" id="10_5br6y"]
 
-[sub_resource type="Gradient" id="Gradient_d5x1h"]
+[sub_resource type="Gradient" id="Gradient_5br6y"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0.39876714, 0.5411656, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8mm7a"]
-gradient = SubResource("Gradient_d5x1h")
+gradient = SubResource("Gradient_5br6y")
 
 [sub_resource type="Gradient" id="Gradient_hq1ik"]
 offsets = PackedFloat32Array(0)
@@ -47,6 +47,14 @@ void_blue = ExtResource("4_7e1ss")
 scale = Vector2(20, 11.222)
 texture = SubResource("GradientTexture2D_8mm7a")
 centered = false
+
+[node name="gold_label" type="Label" parent="Game_Manager"]
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 83.0
+offset_bottom = 54.0
+text = "Gold: 100 
+Shop [p]"
 
 [node name="underground" type="Sprite2D" parent="Game_Manager"]
 position = Vector2(-4.999999, 485)
