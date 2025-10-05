@@ -20,3 +20,12 @@ func flamethrower():
 
 func death():
 	$death.play()
+
+func mine_place():
+	$mine_place.play()
+	
+func mine_shock():
+	$mine_shock.play()
+
+func cannon():
+	$cannon.play()

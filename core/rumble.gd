@@ -62,6 +62,7 @@ func fire(type = weapon):
 			if (Shop.get_upgrade_level(Weapon.keys()[weapon].to_lower()) == 3):
 				instance.aoe_radius = 50
 				instance.get_node("Sprite2D").frame = 1
+			AudioManager.cannon()
 		_:
 			printerr("How did we get here")
 	instance.global_position = global_position
@@ -134,6 +135,7 @@ func _on_lose_game() -> void:
 
 
 func _on_mine_timer_timeout() -> void:
+	AudioManager.mine_place()
 	var instance = mine.instantiate()
 	instance.global_position = global_position
 	var rand = randi() % 2

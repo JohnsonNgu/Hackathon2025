@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
+	AudioManager.mine_shock()
 	area.get_parent().stun(stun_duration)
 	if (aoe):
 		var aoe_shape := get_node("aoe/CollisionShape2D").shape as CircleShape2D
