@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://c88ry2cmra2wv"]
+
+[ext_resource type="Script" uid="uid://bheioff4p2g8t" path="res://core/projectiles/missile.gd" id="1_xon2k"]
+[ext_resource type="Texture2D" uid="uid://deq8or5wohyvk" path="res://assets/Projectiles/equilizer_projectile.png" id="2_qyenh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8q2pr"]
+radius = 15.980111
+height = 51.957176
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1pbr4"]
+radius = 0.01
+
+[node name="projectile" type="Node2D"]
+script = ExtResource("1_xon2k")
+distance = 2000
+damage = 10.0
+cooldown = 20.0
+aoe_radius = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(10, 0)
+scale = Vector2(0.011999999, 0.011999999)
+texture = ExtResource("2_qyenh")
+flip_h = true
+
+[node name="lifetime" type="Timer" parent="."]
+wait_time = 4.038
+
+[node name="hitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(11.000001, 1.9999998)
+rotation = -1.5882496
+shape = SubResource("CapsuleShape2D_8q2pr")
+
+[node name="aoe" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aoe"]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_1pbr4")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
