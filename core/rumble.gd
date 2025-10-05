@@ -12,6 +12,8 @@ extends Area2D
 
 enum Weapon {FLAMETHROWER, HARPOON, CANNON}
 
+var missile_instance = preload("res://core/projectiles/missile.tscn")
+
 signal lose_game
 
 var weapon = Weapon.HARPOON
@@ -100,6 +102,8 @@ func _on_upgrade_purchased(key, level):
 		$flame_ring.start()
 	if (key == "shield" and level == 1):
 		$shield_timer.start()
+	if (key == "equilizer" and level == 1):
+		$equilizer_timer.start()
 	if (key == "shield" and level == 2):
 		$shield_timer.wait_time = 10
 	if (key == "shield" and level == 3):
@@ -152,3 +156,23 @@ func _on_mine_timer_timeout() -> void:
 	else:
 		instance.aoe = false
 	get_tree().current_scene.get_node("Game_Manager").add_child(instance)
+
+func make_missile(pos:Vector2):
+	var missile = missile_instance.instantiate()
+	missile.player = self
+	if (Shop.get_upgrade_level("equilizer") >= 2):
+		missile.damage += 5
+	missile.global_position = pos
+	get_tree().current_scene.get_node("Game_Manager").add_child(missile)
+	AudioManager.missile
+	
+
+func _on_missile_timer_timeout() -> void:
+	var pos = self.global_position
+	if (Shop.get_upgrade_level("equilizer") == 3):
+		make_missile(pos + Vector2(40, 0))
+		make_missile(pos + Vector2(-40, 0))
+	make_missile(pos + Vector2(20,0))
+	make_missile(pos + Vector2(-20,0))
+	make_missile(pos + Vector2(10,0))
+	make_missile(pos + Vector2(-10,0))
