@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpbufnh6sv4oi"]
+
+[ext_resource type="Texture2D" uid="uid://c6ttb1qpkyi1o" path="res://assets/shop_icons/lock.png" id="1_8m38a"]
+[ext_resource type="Script" uid="uid://c5n6dtjob843n" path="res://menu/UpgradeButton.gd" id="1_nnxha"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nnxha"]
+bg_color = Color(0, 0, 0, 0.7529412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iv8a3"]
+bg_color = Color(0, 0, 0, 0.7529412)
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(128, 128)
+offset_right = 8.0
+offset_bottom = 8.0
+action_mode = 0
+script = ExtResource("1_nnxha")
+
+[node name="tooltip_active" type="PanelContainer" parent="."]
+visible = false
+z_index = 1
+layout_mode = 0
+offset_left = 128.0
+offset_right = 384.0
+offset_bottom = 128.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nnxha")
+
+[node name="text" type="RichTextLabel" parent="tooltip_active"]
+z_index = 1
+layout_mode = 2
+text = "Description"
+scroll_active = false
+
+[node name="icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="overlay_dim" type="ColorRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 1, 0, 0.5019608)
+script = ExtResource("1_nnxha")
+
+[node name="lock_icon" type="TextureRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_8m38a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="tooltip_passive" type="PanelContainer" parent="."]
+visible = false
+z_index = 1
+layout_mode = 0
+offset_left = -256.0
+offset_bottom = 128.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_iv8a3")
+
+[node name="text" type="RichTextLabel" parent="tooltip_passive"]
+z_index = 1
+layout_mode = 2
+text = "Description"
+scroll_active = false
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="tooltip_active" to="." method="_on_tooltip_active_mouse_entered"]
+[connection signal="mouse_exited" from="tooltip_active" to="." method="_on_tooltip_active_mouse_exited"]
+[connection signal="mouse_entered" from="overlay_dim" to="." method="_on_overlay_dim_mouse_entered"]
+[connection signal="mouse_exited" from="overlay_dim" to="." method="_on_overlay_dim_mouse_exited"]
+[connection signal="mouse_entered" from="tooltip_passive" to="." method="_on_tooltip_passive_mouse_entered"]
+[connection signal="mouse_exited" from="tooltip_passive" to="." method="_on_tooltip_passive_mouse_exited"]
