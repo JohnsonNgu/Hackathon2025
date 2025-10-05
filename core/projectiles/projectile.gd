@@ -52,13 +52,13 @@ func hit(enemy: Enemy):
 		var aoe_shape := CircleShape2D.new()
 		aoe_shape.radius = aoe_radius
 		
-		#var transform := Transform2D.IDENTITY
-		transform.origin = global_position
+		var aoe_transform := Transform2D.IDENTITY
+		aoe_transform.origin = global_position
 		
 		var space_state = get_world_2d().direct_space_state
 		var query = PhysicsShapeQueryParameters2D.new()
 		query.shape = aoe_shape
-		query.transform = transform
+		query.transform = aoe_transform
 		query.collision_mask = ENEMY_LAYER_MASK
 		
 		var results = space_state.intersect_shape(query)
