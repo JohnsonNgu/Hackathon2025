@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://csm4kn4y87ic8"]
 
-[ext_resource type="Texture2D" uid="uid://dy8y5st5oikqs" path="res://assets/icon.svg" id="1_2c62f"]
-[ext_resource type="Texture2D" uid="uid://bhmn1e66ltba0" path="res://assets/enemies/mite.png" id="2_gyfs4"]
+[ext_resource type="Texture2D" uid="uid://ct2njctrkh8dj" path="res://assets/bumble.png" id="1_2c62f"]
+[ext_resource type="Texture2D" uid="uid://dpcexqhrmngmw" path="res://assets/enemies/void_grub.png" id="2_gyfs4"]
 
 [sub_resource type="Gradient" id="Gradient_2c62f"]
 offsets = PackedFloat32Array(0)
@@ -48,7 +48,7 @@ position = Vector2(640, 490)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("1_2c62f")
 
-[node name="Mite" type="Sprite2D" parent="."]
+[node name="Grub" type="Sprite2D" parent="."]
 position = Vector2(277, 434.99997)
 scale = Vector2(0.12267658, 0.122676566)
 texture = ExtResource("2_gyfs4")

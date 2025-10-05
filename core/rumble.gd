@@ -98,3 +98,7 @@ func _on_game_manager_enemy_hit(enemy: Node2D) -> void:
 	health -= enemy.damage
 	if (health <= 0):
 		emit_signal("lose_game")
+
+
+func _on_lose_game() -> void:
+	get_tree().change_scene_to_file("res://menu/game_over.tscn")

@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://bqh8jaepwke66"]
+
+[ext_resource type="Texture2D" uid="uid://ct2njctrkh8dj" path="res://assets/bumble.png" id="1_rkkr6"]
+[ext_resource type="Script" uid="uid://pqp1o4pi6ds8" path="res://menu/game_over.gd" id="2_rkkr6"]
+
+[sub_resource type="Gradient" id="Gradient_hh23q"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.41896397, 0.15502542, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rkkr6"]
+gradient = SubResource("Gradient_hh23q")
+
+[sub_resource type="Gradient" id="Gradient_ciyvu"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.32205254, 0.20175484, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uh3ar"]
+gradient = SubResource("Gradient_ciyvu")
+
+[sub_resource type="Gradient" id="Gradient_wn5o1"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.23365426, 0.32806692, 0.18039533, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2lfuh"]
+gradient = SubResource("Gradient_wn5o1")
+
+[sub_resource type="SystemFont" id="SystemFont_r3a6b"]
+
+[node name="GameOver" type="Node2D"]
+
+[node name="background" type="Sprite2D" parent="."]
+scale = Vector2(20, 11.222)
+texture = SubResource("GradientTexture2D_rkkr6")
+centered = false
+
+[node name="Sleeping_Rumble" type="Sprite2D" parent="."]
+position = Vector2(704, 550)
+rotation = -3.1415925
+texture = ExtResource("1_rkkr6")
+centered = false
+
+[node name="underground" type="Sprite2D" parent="."]
+position = Vector2(-4.999999, 485)
+scale = Vector2(20.109375, 3.6875002)
+texture = SubResource("GradientTexture2D_uh3ar")
+centered = false
+
+[node name="floor" type="Sprite2D" parent="."]
+position = Vector2(0, 487)
+scale = Vector2(20, 0.359375)
+texture = SubResource("GradientTexture2D_2lfuh")
+centered = false
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1277.0
+offset_bottom = 717.0
+script = ExtResource("2_rkkr6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 1279.0
+offset_bottom = 718.0
+theme_override_constants/separation = 300
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_r3a6b")
+theme_override_font_sizes/font_size = 50
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Restart"
+
+[connection signal="pressed" from="Panel/VBoxContainer/Restart" to="Panel" method="_on_restart_pressed"]
