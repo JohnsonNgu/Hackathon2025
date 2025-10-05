@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtxi3gxarklnu"
-path="res://.godot/imported/transparent-png-image-vintage-rusted-padlock_1062095-4913.jpg-a659a3aa6e704988ca40800ea420bca1.ctex"
+uid="uid://y33arul4bv7h"
+path="res://.godot/imported/blue_void.png-700edb52251d927a7fc808b2f52370d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/shop_icons/transparent-png-image-vintage-rusted-padlock_1062095-4913.jpg"
-dest_files=["res://.godot/imported/transparent-png-image-vintage-rusted-padlock_1062095-4913.jpg-a659a3aa6e704988ca40800ea420bca1.ctex"]
+source_file="res://assets/enemies/blue_void.png"
+dest_files=["res://.godot/imported/blue_void.png-700edb52251d927a7fc808b2f52370d8.ctex"]
 
 [params]
 

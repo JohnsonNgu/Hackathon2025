@@ -1,6 +1,7 @@
 extends Node
 
-var player_money = 500
+@onready
+var player_money = %Game_Manager.player_money
 
 var upgrades = {
 	"flamethrower": {"level": 0, "max_level": 3, "costs": [100, 200, 300], "description": ["Costs: 100 Gold\nTest test","",""]},
@@ -210,3 +211,6 @@ func reset_upgrades():
 	for key in upgrades.keys():
 		upgrades[key]["level"] = 0
 	update_all_buttons()
+
+func _process(delta: float):
+	player_money = %Game_Manager.player_money

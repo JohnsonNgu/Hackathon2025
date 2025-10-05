@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bpvy5ooeev3pv"]
+[gd_scene load_steps=11 format=3 uid="uid://bpvy5ooeev3pv"]
 
 [ext_resource type="Script" uid="uid://cwmm3kjt3o7k4" path="res://core/game_manager.gd" id="1_qc58l"]
 [ext_resource type="PackedScene" uid="uid://434crqvfl0mw" path="res://core/enemy.tscn" id="2_7e1ss"]
 [ext_resource type="PackedScene" uid="uid://bn3nj1jl7mfo5" path="res://core/rumble.tscn" id="3_t6jlt"]
+[ext_resource type="PackedScene" uid="uid://cfnav4bgk1rk" path="res://core/projectiles/harpoon.tscn" id="4_qc58l"]
 
 [sub_resource type="Gradient" id="Gradient_d5x1h"]
 offsets = PackedFloat32Array(0)
@@ -30,9 +31,12 @@ gradient = SubResource("Gradient_66tet")
 [node name="Game_Manager" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_qc58l")
-small_enemy = ExtResource("2_7e1ss")
-med_enemy = ExtResource("2_7e1ss")
-large_enemy = ExtResource("2_7e1ss")
+void_fish = ExtResource("2_7e1ss")
+voidling = ExtResource("2_7e1ss")
+void_grub = ExtResource("2_7e1ss")
+void_scuttle = ExtResource("2_7e1ss")
+void_red = ExtResource("2_7e1ss")
+void_blue = ExtResource("2_7e1ss")
 
 [node name="background" type="Sprite2D" parent="Game_Manager"]
 scale = Vector2(20, 11.222)
@@ -57,9 +61,10 @@ position = Vector2(333, 450)
 [node name="rumble" parent="Game_Manager" instance=ExtResource("3_t6jlt")]
 unique_name_in_owner = true
 position = Vector2(640, 490)
+harpoon = ExtResource("4_qc58l")
 
 [node name="enemy_spawn" type="Timer" parent="Game_Manager"]
-wait_time = 4.0
+wait_time = 2.0
 autostart = true
 
 [connection signal="timeout" from="Game_Manager/enemy_spawn" to="Game_Manager" method="_on_enemy_spawn_timeout"]

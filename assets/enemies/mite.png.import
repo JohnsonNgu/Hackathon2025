@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bhmn1e66ltba0"
-path="res://.godot/imported/mite.png-6ff60ee9cd4995bf6aa17d03b531a9a9.ctex"
+path="res://.godot/imported/mite.png-2486a7bac660853b4209c18108865ae1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mite.png"
-dest_files=["res://.godot/imported/mite.png-6ff60ee9cd4995bf6aa17d03b531a9a9.ctex"]
+source_file="res://assets/enemies/mite.png"
+dest_files=["res://.godot/imported/mite.png-2486a7bac660853b4209c18108865ae1.ctex"]
 
 [params]
 

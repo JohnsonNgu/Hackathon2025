@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://caih2p7bdrv8u"
-path="res://.godot/imported/Tristana's_Cannon_Unlocked.png-4ae1f8d4f8407484935187971739b967.ctex"
+uid="uid://cwwoptxs4vejx"
+path="res://.godot/imported/red_void.png-2ff620edbe184068833fa047500e1157.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Tristana's_Cannon_Unlocked.png"
-dest_files=["res://.godot/imported/Tristana's_Cannon_Unlocked.png-4ae1f8d4f8407484935187971739b967.ctex"]
+source_file="res://assets/enemies/red_void.png"
+dest_files=["res://.godot/imported/red_void.png-2ff620edbe184068833fa047500e1157.ctex"]
 
 [params]
 

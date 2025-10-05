@@ -25,7 +25,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("cycle_weapon"):
 		cycle_weapon()
-	if Input.is_action_just_pressed("fire_weapon"):
+	if Input.is_action_pressed("fire_weapon"):
 		if (!weapon_on_cooldown):
 			fire()
 			
