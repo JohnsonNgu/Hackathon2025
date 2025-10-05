@@ -1,20 +1,27 @@
-extends Area2D
+extends Node2D
 
-class_name projectile
+class_name Projectile
 
 @export var initial_speed = 250
 @export var distance = 350
-@export var player:StaticBody2D
+@export var player:Area2D
+@export var damage = 3
+@export var cooldown = 2
+@export var aoe_radius = .01
+@export var pierce = 1
 var direction = Vector2.RIGHT
 
-
+const ENEMY_LAYER_MASK = 2
 var velocity
 var current_distance = 0
+var hit_enemy = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await ready
+	get_node("aoe/CollisionShape2D").shape.radius = aoe_radius
 	look_at(get_global_mouse_position())
 	velocity = direction.rotated(rotation) * initial_speed
+	
 	pass # Replace with function body.
 
 
@@ -25,3 +32,40 @@ func _physics_process(delta: float) -> void:
 	if (current_distance > distance):
 		queue_free()
 	pass
+	
+func get_damage() -> int:
+	return damage
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	var enemy = area.get_parent() as Enemy
+	hit(enemy)
+	queue_free()
+
+func hit(enemy: Enemy):
+	if (hit_enemy):
+		return
+	enemy.take_damage(damage)
+	hit_enemy = true
+	if (aoe_radius > 1):
+		var aoe_shape := CircleShape2D.new()
+		aoe_shape.radius = aoe_radius
+		
+		#var transform := Transform2D.IDENTITY
+		transform.origin = global_position
+		
+		var space_state = get_world_2d().direct_space_state
+		var query = PhysicsShapeQueryParameters2D.new()
+		query.shape = aoe_shape
+		query.transform = transform
+		query.collision_mask = ENEMY_LAYER_MASK
+		
+		var results = space_state.intersect_shape(query)
+		
+		for result in results:
+			var target = result.collider
+			target.take_damage(damage)
+		
+	pierce -= 1
+	if (pierce <= 0):
+		queue_free()

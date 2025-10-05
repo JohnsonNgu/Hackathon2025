@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bujqwac33jf07"
-path="res://.godot/imported/lock.png-ab89f223ee9bafec9224251476949010.ctex"
+uid="uid://dtxi3gxarklnu"
+path="res://.godot/imported/transparent-png-image-vintage-rusted-padlock_1062095-4913.jpg-a659a3aa6e704988ca40800ea420bca1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/shop_icons/lock.png"
-dest_files=["res://.godot/imported/lock.png-ab89f223ee9bafec9224251476949010.ctex"]
+source_file="res://assets/shop_icons/transparent-png-image-vintage-rusted-padlock_1062095-4913.jpg"
+dest_files=["res://.godot/imported/transparent-png-image-vintage-rusted-padlock_1062095-4913.jpg-a659a3aa6e704988ca40800ea420bca1.ctex"]
 
 [params]
 

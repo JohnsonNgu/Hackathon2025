@@ -1,23 +1,34 @@
-[gd_scene load_steps=4 format=3 uid="uid://434crqvfl0mw"]
+[gd_scene load_steps=5 format=3 uid="uid://434crqvfl0mw"]
 
+[ext_resource type="Script" uid="uid://dh280x3nsphdx" path="res://core/enemy.gd" id="1_eaiur"]
 [ext_resource type="Texture2D" uid="uid://bhmn1e66ltba0" path="res://assets/mite.png" id="1_op72d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eaiur"]
-size = Vector2(47.25, 65.75)
+size = Vector2(47.25, 92.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbio"]
 size = Vector2(97.75, 42.5)
 
-[node name="enemy" type="CharacterBody2D"]
+[node name="enemy" type="Node2D"]
+script = ExtResource("1_eaiur")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.123, 0.123)
 texture = ExtResource("1_op72d")
 
-[node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(2, 7.875)
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="hitbox" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(2, -5.625)
 shape = SubResource("RectangleShape2D_eaiur")
 
-[node name="hurtbox" type="CollisionShape2D" parent="."]
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="hurtbox" type="CollisionShape2D" parent="hurtbox"]
 position = Vector2(51, 1)
 shape = SubResource("RectangleShape2D_rkbio")
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
