@@ -11,6 +11,8 @@ extends Area2D
 
 enum Weapon {FLAMETHROWER, HARPOON, CANNON}
 
+signal lose_game
+
 var weapon = Weapon.HARPOON
 var weapon_on_cooldown = false
 var health = initial_health
@@ -39,7 +41,7 @@ func fire(type = weapon):
 		Weapon.FLAMETHROWER:
 			instance = flamethrower.instantiate()
 			if (Shop.get_upgrade_level(Weapon.keys()[weapon].to_lower()) >= 2):
-				instance.damage += 1
+				instance.damage += .25
 		Weapon.HARPOON:
 			instance = harpoon.instantiate()
 			if (Shop.get_upgrade_level(Weapon.keys()[weapon].to_lower()) >= 2):
@@ -94,3 +96,5 @@ func _on_upgrade_purchased(key, level):
 
 func _on_game_manager_enemy_hit(enemy: Node2D) -> void:
 	health -= enemy.damage
+	if (health <= 0):
+		emit_signal("lose_game")

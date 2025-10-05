@@ -27,7 +27,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	velocity = Vector2.ZERO
 	$attack_timer.start()
 
-func take_damage(damage:int):
+func take_damage(damage:float):
 	health = health - damage
 	if (health <= 0): health_depleted()
 	

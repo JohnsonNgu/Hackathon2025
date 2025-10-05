@@ -5,7 +5,7 @@ class_name Projectile
 @export var initial_speed = 250
 @export var distance = 350
 @export var player:Area2D
-@export var damage = 3
+@export var damage = 3.0
 @export var cooldown = 2.0
 @export var aoe_radius = .01
 @export var pierce = 1

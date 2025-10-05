@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bgg4wd6up45" path="res://core/rumble.gd" id="1_vo1cb"]
 [ext_resource type="PackedScene" uid="uid://b6qe7sqgurvsi" path="res://core/projectiles/flamethrower.tscn" id="2_u3d5i"]
-[ext_resource type="PackedScene" uid="uid://c1xhu6eia56jl" path="res://core/projectiles/projectile.tscn" id="2_vo1cb"]
+[ext_resource type="PackedScene" uid="uid://c1xhu6eia56jl" path="res://core/projectiles/projectile_template.tscn" id="2_vo1cb"]
 [ext_resource type="PackedScene" uid="uid://cfnav4bgk1rk" path="res://core/projectiles/harpoon.tscn" id="3_u3d5i"]
 [ext_resource type="Texture2D" uid="uid://ct2njctrkh8dj" path="res://assets/bumble.png" id="5_u3d5i"]
 
@@ -15,7 +15,6 @@ script = ExtResource("1_vo1cb")
 flamethrower = ExtResource("2_u3d5i")
 harpoon = ExtResource("3_u3d5i")
 cannon = ExtResource("2_vo1cb")
-health = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("5_u3d5i")
