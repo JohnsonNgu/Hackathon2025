@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bpvy5ooeev3pv"]
+[gd_scene load_steps=18 format=3 uid="uid://bpvy5ooeev3pv"]
 
 [ext_resource type="Script" uid="uid://cwmm3kjt3o7k4" path="res://core/game_manager.gd" id="1_qc58l"]
 [ext_resource type="PackedScene" uid="uid://bn17fvvchuxqd" path="res://core/enemies/void_remora.tscn" id="2_0hee5"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c3ta3mslfbwg4" path="res://core/enemies/void_grub.tscn" id="4_w1xe6"]
 [ext_resource type="PackedScene" uid="uid://dm1taxdlv0v06" path="res://core/enemies/void_scuttler.tscn" id="5_a313s"]
 [ext_resource type="PackedScene" uid="uid://tqgky5r1hdnb" path="res://core/projectiles/cannon.tscn" id="10_5br6y"]
+[ext_resource type="Script" uid="uid://bqh2xspy8jyh3" path="res://core/health_bar.gd" id="10_w1xe6"]
 
 [sub_resource type="Gradient" id="Gradient_d5x1h"]
 offsets = PackedFloat32Array(0)
@@ -30,6 +31,9 @@ colors = PackedColorArray(0.23365426, 0.32806692, 0.18039533, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_7ycvg"]
 gradient = SubResource("Gradient_66tet")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5br6y"]
+bg_color = Color(0, 0.72724926, 0.123292424, 1)
 
 [node name="Node2D" type="Node2D"]
 
@@ -64,6 +68,17 @@ centered = false
 unique_name_in_owner = true
 position = Vector2(640, 490)
 cannon = ExtResource("10_5br6y")
+
+[node name="health_bar" type="ProgressBar" parent="Game_Manager/rumble"]
+offset_left = -151.0
+offset_top = -91.0
+offset_right = 153.0
+offset_bottom = -64.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_5br6y")
+show_percentage = false
+script = ExtResource("10_w1xe6")
 
 [node name="enemy_spawn" type="Timer" parent="Game_Manager"]
 wait_time = 2.0

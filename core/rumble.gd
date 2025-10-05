@@ -6,13 +6,14 @@ extends Area2D
 @export var cannon:PackedScene
 
 @export_category("Balancing")
-@export var health = 15
+@export var initial_health = 15
 @export var weapon_velocity = 100
 
 enum Weapon {FLAMETHROWER, HARPOON, CANNON}
 
 var weapon = Weapon.HARPOON
 var weapon_on_cooldown = false
+var health = initial_health
 
 var changes = 1 #placeholder for shop editions and whatnot to edit cds and such
 
