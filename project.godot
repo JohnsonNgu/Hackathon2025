@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="HackRU2025"
-run/main_scene="uid://eu8b1gvvgbar"
+run/main_scene="uid://dru612pk0th0n"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://assets/icon.svg"
 <<<<<<<HEADconfig/icon="res://icon.svg"
