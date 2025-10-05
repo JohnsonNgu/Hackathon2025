@@ -7,7 +7,9 @@ extends Node2D
 @export var void_red:PackedScene
 @export var void_blue:PackedScene
 
-var player_money
+signal enemy_hit(enemy:Node2D)
+
+#var player_money = 100
 enum Enemy_Type{FISH, VOIDLING, GRUB, SCUTTLE, RED, BLUE}
 var voidling_count = 0
 
@@ -22,6 +24,7 @@ func _ready() -> void:
 	shop_scene.visible = false
 	shop_scene.z_index = 99
 	shop_scene.process_mode = PROCESS_MODE_ALWAYS
+	Shop.player_money = 100
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,28 +42,34 @@ func _on_enemy_spawn_timeout() -> void:
 	
 func spawn_enemy():
 	var type = randi() % Enemy_Type.size()
+	var offset = 0
 	var scene
 	match type:
 		0:
 			scene = void_fish.instantiate()
+			offset = -25
 		1:
 			voidling_count = 0
-			spawn_voidling()
+			offset = 20
+			spawn_voidling(offset)
 			return
 		2:
 			scene = void_grub.instantiate()
 		3:
 			scene = void_scuttle.instantiate()
+			offset = 10
 		4:
 			scene = void_red.instantiate()
 		5:
 			scene = void_blue.instantiate()
 		_:
 			printerr("ERROR: Incorrect enemy type random")
-	scene = decide_side(scene)
+	scene = decide_side(scene, offset)
+	scene.die.connect(enemy_death)
+	scene.attack.connect(enemy_attack)
 	get_tree().current_scene.get_node("Game_Manager").add_child(scene)
 	
-func decide_side(scene:Node) -> Node:
+func decide_side(scene:Node, offset) -> Node:
 	var orientation = randi() % 2
 	if (orientation == 0):
 		scene.global_position = Vector2(-30, GROUND_HEIGHT)
@@ -70,14 +79,20 @@ func decide_side(scene:Node) -> Node:
 		scene.get_node("Sprite2D").flip_v = true
 		#scene.get_node("Sprite2D").flip_h = true
 		scene.rotation = PI
+	scene.global_position.y += offset
 	return scene
 	
-func spawn_voidling():
+func spawn_voidling(offset):
 	var scene = voidling.instantiate()
-	scene = decide_side(scene)
+	scene = decide_side(scene, offset)
 	for i in range(3):
-		print("its voiding time then he voided all over the place")
 		var clone = scene.duplicate(DUPLICATE_USE_INSTANTIATION)
+		clone.die.connect(enemy_death)
 		get_tree().current_scene.get_node("Game_Manager").add_child(clone)
 		await get_tree().create_timer(0.6).timeout
-	
+
+func enemy_death(enemy:Node2D):
+	Shop.add_money(enemy.gold_value)
+
+func enemy_attack(enemy:Node2D):
+	emit_signal("enemy_hit", enemy)

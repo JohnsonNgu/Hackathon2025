@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6qe7sqgurvsi"]
+
+[ext_resource type="Script" uid="uid://pusnp2eheou7" path="res://core/projectiles/projectile.gd" id="1_05ymw"]
+[ext_resource type="Texture2D" uid="uid://uj1ftphm3wbc" path="res://assets/Projectiles/flamethrower_projectile.png" id="2_gmd3h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8q2pr"]
+radius = 15.980111
+height = 51.957176
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1pbr4"]
+radius = 0.01
+
+[node name="projectile" type="Node2D"]
+script = ExtResource("1_05ymw")
+initial_speed = 500
+distance = 175
+damage = 0.75
+cooldown = 0.1
+pierce = 9999999
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.011999999, 0.011999999)
+texture = ExtResource("2_gmd3h")
+flip_h = true
+
+[node name="lifetime" type="Timer" parent="."]
+
+[node name="hitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(1, 0)
+rotation = -1.5882496
+shape = SubResource("CapsuleShape2D_8q2pr")
+
+[node name="aoe" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aoe"]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_1pbr4")
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

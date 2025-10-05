@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://assets/icon.svg"
 <<<<<<<HEADconfig/icon="res://icon.svg"
 
+[autoload]
+
+Shop="*res://Shop.gd"
+
 [display]
 
 window/size/viewport_width=1280
