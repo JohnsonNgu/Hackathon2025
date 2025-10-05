@@ -1,6 +1,7 @@
 extends Node
 
-var player_money = 50000
+@onready
+var player_money = %Game_Manager.player_money
 
 var upgrades = {
 	"flamethrower": {"level": 0, "max_level": 3, "costs": [100, 200, 500], "description": ["Costs: 100 Gold\nRumble’s Trusty Fire Splitter, great for getting them off of you!", "Costs: 200 Gold\nRumble uses double the fuel to increase the size of his fire! (Slightly more dmg &  Larger radius)", "Costs: 500 Gold\nThe metal is so hot it created an aura of fire! (Flame ring surrounds Rumble's mech)"]},
@@ -218,3 +219,6 @@ func reset_upgrades():
 	for key in upgrades.keys():
 		upgrades[key]["level"] = 0
 	update_all_buttons()
+
+func _process(delta: float):
+	player_money = %Game_Manager.player_money

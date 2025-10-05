@@ -5,6 +5,7 @@ class_name Enemy
 @export var health = 5
 @export var speed = 100
 @export var direction = Vector2.RIGHT
+@export var money = 5
 var velocity
 
 # Called when the node enters the scene tree for the first time.

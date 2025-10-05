@@ -1,10 +1,16 @@
 extends Node2D
 
-@export var small_enemy:PackedScene
-@export var med_enemy:PackedScene
-@export var large_enemy:PackedScene
+@export var void_fish:PackedScene
+@export var voidling:PackedScene
+@export var void_grub:PackedScene
+@export var void_scuttle:PackedScene
+@export var void_red:PackedScene
+@export var void_blue:PackedScene
 
-enum Enemy_Type {SMALL, MEDIUM, LARGE}
+var player_money
+enum Enemy_Type{FISH, VOIDLING, GRUB, SCUTTLE, RED, BLUE}
+var voidling_count = 0
+
 const GROUND_HEIGHT = 445
 
 var shop_scene = preload("res://menu/shop.tscn")
@@ -36,13 +42,25 @@ func spawn_enemy():
 	var scene
 	match type:
 		0:
-			scene = small_enemy.instantiate()
+			scene = void_fish.instantiate()
 		1:
-			scene = med_enemy.instantiate()
+			voidling_count = 0
+			spawn_voidling()
+			return
 		2:
-			scene = large_enemy.instantiate()
+			scene = void_grub.instantiate()
+		3:
+			scene = void_scuttle.instantiate()
+		4:
+			scene = void_red.instantiate()
+		5:
+			scene = void_blue.instantiate()
 		_:
 			printerr("ERROR: Incorrect enemy type random")
+	scene = decide_side(scene)
+	get_tree().current_scene.get_node("Game_Manager").add_child(scene)
+	
+func decide_side(scene:Node) -> Node:
 	var orientation = randi() % 2
 	if (orientation == 0):
 		scene.global_position = Vector2(-30, GROUND_HEIGHT)
@@ -52,4 +70,14 @@ func spawn_enemy():
 		scene.get_node("Sprite2D").flip_v = true
 		#scene.get_node("Sprite2D").flip_h = true
 		scene.rotation = PI
-	get_tree().current_scene.get_node("Game_Manager").add_child(scene)
+	return scene
+	
+func spawn_voidling():
+	var scene = voidling.instantiate()
+	scene = decide_side(scene)
+	for i in range(3):
+		print("its voiding time then he voided all over the place")
+		var clone = scene.duplicate(DUPLICATE_USE_INSTANTIATION)
+		get_tree().current_scene.get_node("Game_Manager").add_child(clone)
+		await get_tree().create_timer(0.6).timeout
+	
