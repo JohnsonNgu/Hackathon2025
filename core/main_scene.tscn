@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bpvy5ooeev3pv"]
+[gd_scene load_steps=17 format=3 uid="uid://bpvy5ooeev3pv"]
 
 [ext_resource type="Script" uid="uid://cwmm3kjt3o7k4" path="res://core/game_manager.gd" id="1_qc58l"]
 [ext_resource type="PackedScene" uid="uid://bn17fvvchuxqd" path="res://core/enemies/void_remora.tscn" id="2_0hee5"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ce3g8x07jwlpf" path="res://core/enemies/void_blue.tscn" id="4_7e1ss"]
 [ext_resource type="PackedScene" uid="uid://c3ta3mslfbwg4" path="res://core/enemies/void_grub.tscn" id="4_w1xe6"]
 [ext_resource type="PackedScene" uid="uid://dm1taxdlv0v06" path="res://core/enemies/void_scuttler.tscn" id="5_a313s"]
+[ext_resource type="Texture2D" uid="uid://dw42enskti6xc" path="res://assets/Void_background.jpg" id="8_5br6y"]
 [ext_resource type="PackedScene" uid="uid://tqgky5r1hdnb" path="res://core/projectiles/cannon.tscn" id="10_5br6y"]
 
 [sub_resource type="Gradient" id="Gradient_5br6y"]
@@ -48,14 +49,6 @@ scale = Vector2(20, 11.222)
 texture = SubResource("GradientTexture2D_8mm7a")
 centered = false
 
-[node name="gold_label" type="Label" parent="Game_Manager"]
-offset_left = 7.0
-offset_top = 5.0
-offset_right = 83.0
-offset_bottom = 54.0
-text = "Gold: 100 
-Shop [p]"
-
 [node name="underground" type="Sprite2D" parent="Game_Manager"]
 position = Vector2(-4.999999, 485)
 scale = Vector2(20.109375, 3.6875002)
@@ -67,6 +60,19 @@ position = Vector2(0, 487)
 scale = Vector2(20, 0.359375)
 texture = SubResource("GradientTexture2D_7ycvg")
 centered = false
+
+[node name="VoidBackground" type="Sprite2D" parent="Game_Manager"]
+position = Vector2(627.875, 370)
+scale = Vector2(1.8336735, 1.953368)
+texture = ExtResource("8_5br6y")
+
+[node name="gold_label" type="Label" parent="Game_Manager"]
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 83.0
+offset_bottom = 54.0
+text = "Gold: 100 
+Shop [p]"
 
 [node name="rumble" parent="Game_Manager" instance=ExtResource("3_t6jlt")]
 unique_name_in_owner = true
