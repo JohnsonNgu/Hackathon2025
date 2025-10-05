@@ -4,6 +4,7 @@ extends Area2D
 @export var flamethrower:PackedScene
 @export var harpoon:PackedScene
 @export var cannon:PackedScene
+@export var mine:PackedScene
 
 @export_category("Balancing")
 @export var initial_health = 15
@@ -17,12 +18,14 @@ var weapon = Weapon.HARPOON
 var weapon_on_cooldown = false
 var health = initial_health
 var shield = false
+var reflect = true
 
 var changes = 1 #placeholder for shop editions and whatnot to edit cds and such
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Shop.upgrade_purchased.connect(_on_upgrade_purchased)
+	$shield_timer.wait_time = 15
 	pass # Replace with function body.
 
 
@@ -43,6 +46,7 @@ func fire(type = weapon):
 			instance = flamethrower.instantiate()
 			if (Shop.get_upgrade_level(Weapon.keys()[weapon].to_lower()) >= 2):
 				instance.damage += .25
+			AudioManager.flamethrower()
 		Weapon.HARPOON:
 			instance = harpoon.instantiate()
 			if (Shop.get_upgrade_level(Weapon.keys()[weapon].to_lower()) >= 2):
@@ -50,6 +54,7 @@ func fire(type = weapon):
 				attack_speed = 0.75
 			if (Shop.get_upgrade_level(Weapon.keys()[weapon].to_lower()) == 3):
 				instance.pierce += 1
+			AudioManager.harpoon()
 		Weapon.CANNON:
 			instance = cannon.instantiate()
 			if (Shop.get_upgrade_level(Weapon.keys()[weapon].to_lower()) >= 2):
@@ -94,6 +99,12 @@ func _on_upgrade_purchased(key, level):
 		$flame_ring.start()
 	if (key == "shield" and level == 1):
 		$shield_timer.start()
+	if (key == "shield" and level == 2):
+		$shield_timer.wait_time = 10
+	if (key == "shield" and level == 3):
+		reflect = true
+	if (key == "mines" and level == 1):
+		$mine_timer.start()
 	pass
 
 
@@ -102,6 +113,7 @@ func _on_game_manager_enemy_hit(enemy: Node2D) -> void:
 		shield = false
 		var fill_style := $health_bar.get("theme_override_styles/fill") as StyleBoxFlat
 		fill_style.bg_color = Color.GREEN
+		enemy.take_damage(enemy.damage)
 		return
 	health -= enemy.damage
 	$shield_timer.start()
@@ -113,8 +125,28 @@ func _on_shield_timer_timeout() -> void:
 	shield = true
 	var fill_style := $health_bar.get("theme_override_styles/fill") as StyleBoxFlat
 	fill_style.bg_color = Color.BLUE
-	pass # Replace with function body.
+	AudioManager.shield()
 
 
 func _on_lose_game() -> void:
+	AudioManager.death()
 	get_tree().change_scene_to_file("res://menu/game_over.tscn")
+
+
+func _on_mine_timer_timeout() -> void:
+	var instance = mine.instantiate()
+	instance.global_position = global_position
+	var rand = randi() % 2
+	if (rand == 0):
+		instance.global_position.x += 350
+	else:
+		instance.global_position.x -= 350
+	if (Shop.get_upgrade_level("mines") == 1):
+		instance.stun_duration = 1.5
+	elif (Shop.get_upgrade_level("mines") >= 2):
+		instance.stun_duration = 2.0
+	if Shop.get_upgrade_level("mines") == 3:
+		instance.aoe = true
+	else:
+		instance.aoe = false
+	get_tree().current_scene.get_node("Game_Manager").add_child(instance)
