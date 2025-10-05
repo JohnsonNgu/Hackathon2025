@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhmn1e66ltba0"
-path="res://.godot/imported/mite.png-2486a7bac660853b4209c18108865ae1.ctex"
+uid="uid://co8pydsjhd55g"
+path="res://.godot/imported/equilizer_3.png-345d05f42334690ce97df6ba425c738a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/mite.png"
-dest_files=["res://.godot/imported/mite.png-2486a7bac660853b4209c18108865ae1.ctex"]
+source_file="res://assets/shop_icons/equilizer_3.png"
+dest_files=["res://.godot/imported/equilizer_3.png-345d05f42334690ce97df6ba425c738a.ctex"]
 
 [params]
 
