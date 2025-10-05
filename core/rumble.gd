@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Area2D
 
 @export_category("Weapon Sprites")
 @export var flamethrower:PackedScene
@@ -6,31 +6,25 @@ extends StaticBody2D
 @export var cannon:PackedScene
 
 @export_category("Balancing")
-@export var ftcooldown = 1
-@export var hcooldown = 1.5
-@export var ccooldown = 2.5
-@export var ftdistance = 50
-@export var hdistance = 350
-@export var cdistance = 1000
+@export var health = 15
 @export var weapon_velocity = 100
 
 enum Weapon {FLAMETHROWER, HARPOON, CANNON}
 
 var weapon = Weapon.HARPOON
 var weapon_on_cooldown = false
-var distance = hdistance
-var cooldown = hcooldown
+
+var changes = 1 #placeholder for shop editions and whatnot to edit cds and such
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$weapon_cooldown.start(cooldown)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("cycle_weapon"):
-		weapon = (weapon + 1) % Weapon.size() as Weapon
+		cycle_weapon()
 	if Input.is_action_just_pressed("fire_weapon"):
 		if (!weapon_on_cooldown):
 			fire()
@@ -42,7 +36,6 @@ func fire():
 			instance = flamethrower.instantiate()
 		Weapon.HARPOON:
 			instance = harpoon.instantiate()
-			print("harpoon spawns")
 		Weapon.CANNON:
 			instance = cannon.instantiate()
 		_:
@@ -50,8 +43,21 @@ func fire():
 	instance.global_position = global_position
 	instance.player = self
 	get_tree().current_scene.get_node("Game_Manager").add_child(instance)
+	$weapon_cooldown.start(instance.cooldown)
 	weapon_on_cooldown = true
+	
+func cycle_weapon():
+	weapon = (weapon + 1) % Weapon.size() as Weapon
+	print("Cylce to ", weapon)
+	#match weapon:
+		#Weapon.FLAMETHROWER:
+			#cooldown = ftcooldown * changes
+		#Weapon.HARPOON:
+			#cooldown = hcooldown * changes
+		#Weapon.CANNON:
+			#cooldown = ccooldown * changes
+		#_:
+			#printerr("How did we get here")
 
 func _on_weapon_cooldown_timeout() -> void:
-	print("weapon cooldown ended")
 	weapon_on_cooldown = false
