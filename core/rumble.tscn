@@ -29,5 +29,6 @@ autostart = true
 [node name="flame_ring" type="Timer" parent="."]
 wait_time = 0.5
 
+[connection signal="lose_game" from="." to="." method="_on_lose_game"]
 [connection signal="timeout" from="weapon_cooldown" to="." method="_on_weapon_cooldown_timeout"]
 [connection signal="timeout" from="flame_ring" to="." method="_on_flame_ring_timeout"]

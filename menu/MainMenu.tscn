@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://dru612pk0th0n"]
 
-[ext_resource type="Script" path="res://menu/mainmenu.gd" id="1_0gkbj"]
+[ext_resource type="Script" uid="uid://n5lit0i5plbu" path="res://menu/mainmenu.gd" id="1_0gkbj"]
 
-[sub_resource type="Gradient" id="Gradient_hh23q"]
+[sub_resource type="Gradient" id="Gradient_d5x1h"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.41896397, 0.15502542, 0, 1)
+colors = PackedColorArray(0.39876714, 0.5411656, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0gkbj"]
-gradient = SubResource("Gradient_hh23q")
+gradient = SubResource("Gradient_d5x1h")
 
 [sub_resource type="Gradient" id="Gradient_ciyvu"]
 offsets = PackedFloat32Array(0)
@@ -16,12 +16,12 @@ colors = PackedColorArray(0.32205254, 0.20175484, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rbtx8"]
 gradient = SubResource("Gradient_ciyvu")
 
-[sub_resource type="Gradient" id="Gradient_wn5o1"]
+[sub_resource type="Gradient" id="Gradient_rbtx8"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0.23365426, 0.32806692, 0.18039533, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_kh61s"]
-gradient = SubResource("Gradient_wn5o1")
+gradient = SubResource("Gradient_rbtx8")
 
 [sub_resource type="SystemFont" id="SystemFont_hh23q"]
 
