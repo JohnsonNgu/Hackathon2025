@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlg1l1cygbtut"]
+
+[ext_resource type="Script" uid="uid://dwvkmr147yaw" path="res://audio_manager.gd" id="1_jisk1"]
+[ext_resource type="AudioStream" uid="uid://cg4al8ja3yerf" path="res://assets/sounds/background.mp3" id="2_bq1v2"]
+[ext_resource type="AudioStream" uid="uid://c1k5wbg2nelpv" path="res://assets/sounds/gold.mp3" id="3_6jj5d"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_jisk1")
+
+[node name="bg_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_bq1v2")
+volume_db = -20.0
+autoplay = true
+
+[node name="gold_drop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_6jj5d")

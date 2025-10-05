@@ -16,6 +16,7 @@ signal lose_game
 var weapon = Weapon.HARPOON
 var weapon_on_cooldown = false
 var health = initial_health
+var shield = false
 
 var changes = 1 #placeholder for shop editions and whatnot to edit cds and such
 
@@ -91,10 +92,25 @@ func _on_flame_ring_timeout() -> void:
 func _on_upgrade_purchased(key, level):
 	if (key == "flamethrower" and level == 3):
 		$flame_ring.start()
+	if (key == "shield" and level == 1):
+		$shield_timer.start()
 	pass
 
 
 func _on_game_manager_enemy_hit(enemy: Node2D) -> void:
+	if (shield):
+		shield = false
+		var fill_style := $health_bar.get("theme_override_styles/fill") as StyleBoxFlat
+		fill_style.bg_color = Color.GREEN
+		return
 	health -= enemy.damage
+	$shield_timer.start()
 	if (health <= 0):
 		emit_signal("lose_game")
+
+
+func _on_shield_timer_timeout() -> void:
+	shield = true
+	var fill_style := $health_bar.get("theme_override_styles/fill") as StyleBoxFlat
+	fill_style.bg_color = Color.BLUE
+	pass # Replace with function body.

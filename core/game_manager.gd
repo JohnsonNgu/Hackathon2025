@@ -93,6 +93,7 @@ func spawn_voidling(offset):
 
 func enemy_death(enemy:Node2D):
 	Shop.add_money(enemy.gold_value)
+	AudioManager.gold_drop()
 
 func enemy_attack(enemy:Node2D):
 	emit_signal("enemy_hit", enemy)
