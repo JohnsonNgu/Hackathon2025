@@ -74,7 +74,7 @@ position = Vector2(640, 490)
 cannon = ExtResource("10_5br6y")
 
 [node name="enemy_spawn" type="Timer" parent="Game_Manager"]
-wait_time = 2.0
+wait_time = 3.0
 autostart = true
 
 [connection signal="enemy_hit" from="Game_Manager" to="Game_Manager/rumble" method="_on_game_manager_enemy_hit"]

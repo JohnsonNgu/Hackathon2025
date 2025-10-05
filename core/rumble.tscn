@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bn3nj1jl7mfo5"]
+[gd_scene load_steps=10 format=3 uid="uid://bn3nj1jl7mfo5"]
 
 [ext_resource type="Script" uid="uid://bgg4wd6up45" path="res://core/rumble.gd" id="1_vo1cb"]
 [ext_resource type="PackedScene" uid="uid://b6qe7sqgurvsi" path="res://core/projectiles/flamethrower.tscn" id="2_u3d5i"]
 [ext_resource type="PackedScene" uid="uid://c1xhu6eia56jl" path="res://core/projectiles/projectile_template.tscn" id="2_vo1cb"]
 [ext_resource type="PackedScene" uid="uid://cfnav4bgk1rk" path="res://core/projectiles/harpoon.tscn" id="3_u3d5i"]
+[ext_resource type="PackedScene" uid="uid://bv7qyuwx18g24" path="res://core/projectiles/mine.tscn" id="5_rdjip"]
 [ext_resource type="Texture2D" uid="uid://ct2njctrkh8dj" path="res://assets/bumble.png" id="5_u3d5i"]
 [ext_resource type="Script" uid="uid://bqh2xspy8jyh3" path="res://core/health_bar.gd" id="6_n1fv5"]
 
@@ -19,6 +20,7 @@ script = ExtResource("1_vo1cb")
 flamethrower = ExtResource("2_u3d5i")
 harpoon = ExtResource("3_u3d5i")
 cannon = ExtResource("2_vo1cb")
+mine = ExtResource("5_rdjip")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("5_u3d5i")
@@ -48,6 +50,7 @@ show_percentage = false
 script = ExtResource("6_n1fv5")
 
 [node name="shield_timer2" type="Timer" parent="."]
+[node name="mine_timer" type="Timer" parent="."]
 wait_time = 15.0
 
 [node name="health_bar2" type="ProgressBar" parent="."]
@@ -69,3 +72,4 @@ wait_time = 15.0
 [connection signal="timeout" from="flame_ring" to="." method="_on_flame_ring_timeout"]
 [connection signal="timeout" from="shield_timer" to="." method="_on_shield_timer_timeout"]
 [connection signal="timeout" from="equilizer_timer" to="." method="_on_missile_timer_timeout"]
+[connection signal="timeout" from="mine_timer" to="." method="_on_mine_timer_timeout"]

@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bv7qyuwx18g24"]
+
+[ext_resource type="Script" uid="uid://benq1xl8jph38" path="res://core/projectiles/mine.gd" id="1_f267t"]
+[ext_resource type="Texture2D" uid="uid://ciug8l628bjd0" path="res://assets/Projectiles/landmine_projectile.png" id="1_kedk5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f267t"]
+radius = 15.0
+height = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f267t"]
+radius = 50.0
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_f267t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.012, 0.012)
+texture = ExtResource("1_kedk5")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_f267t")
+
+[node name="aoe" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aoe"]
+shape = SubResource("CircleShape2D_f267t")
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
