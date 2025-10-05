@@ -6,14 +6,26 @@ extends Node2D
 
 enum Enemy_Type {SMALL, MEDIUM, LARGE}
 const GROUND_HEIGHT = 445
+
+var shop_scene = preload("res://menu/shop.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	shop_scene = shop_scene.instantiate()
+	add_child(shop_scene)
+	shop_scene.visible = false
+	shop_scene.z_index = 99
+	shop_scene.process_mode = PROCESS_MODE_ALWAYS
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed("show_shop"):
+		shop_scene.visible = true
+		get_tree().paused = true
+	#if Input.is_action_just_pressed("escape") and !shop_scene.visible:
+		#get_tree().paused = true
+	#if Input.is
 
 
 func _on_enemy_spawn_timeout() -> void:

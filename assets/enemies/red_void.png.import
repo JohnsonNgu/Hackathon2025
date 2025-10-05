@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhmn1e66ltba0"
-path="res://.godot/imported/mite.png-2486a7bac660853b4209c18108865ae1.ctex"
+uid="uid://cwwoptxs4vejx"
+path="res://.godot/imported/red_void.png-2ff620edbe184068833fa047500e1157.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/mite.png"
-dest_files=["res://.godot/imported/mite.png-2486a7bac660853b4209c18108865ae1.ctex"]
+source_file="res://assets/enemies/red_void.png"
+dest_files=["res://.godot/imported/red_void.png-2ff620edbe184068833fa047500e1157.ctex"]
 
 [params]
 

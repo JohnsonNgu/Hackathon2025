@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://csm4kn4y87ic8"]
+
+[ext_resource type="Texture2D" uid="uid://dy8y5st5oikqs" path="res://assets/icon.svg" id="1_2c62f"]
+[ext_resource type="Texture2D" uid="uid://bhmn1e66ltba0" path="res://assets/enemies/mite.png" id="2_gyfs4"]
+
+[sub_resource type="Gradient" id="Gradient_2c62f"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.41896397, 0.15502542, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8mm7a"]
+gradient = SubResource("Gradient_2c62f")
+
+[sub_resource type="Gradient" id="Gradient_gyfs4"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.32205254, 0.20175484, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nfk4m"]
+gradient = SubResource("Gradient_gyfs4")
+
+[sub_resource type="Gradient" id="Gradient_d5x1h"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.23365426, 0.32806692, 0.18039533, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7ycvg"]
+gradient = SubResource("Gradient_d5x1h")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="background" type="Sprite2D" parent="."]
+scale = Vector2(20, 11.222)
+texture = SubResource("GradientTexture2D_8mm7a")
+centered = false
+
+[node name="underground" type="Sprite2D" parent="."]
+position = Vector2(-4.999999, 485)
+scale = Vector2(20.109375, 3.6875002)
+texture = SubResource("GradientTexture2D_nfk4m")
+centered = false
+
+[node name="floor" type="Sprite2D" parent="."]
+position = Vector2(0, 487)
+scale = Vector2(20, 0.359375)
+texture = SubResource("GradientTexture2D_7ycvg")
+centered = false
+
+[node name="bumble" type="Sprite2D" parent="."]
+position = Vector2(640, 490)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_2c62f")
+
+[node name="Mite" type="Sprite2D" parent="."]
+position = Vector2(277, 434.99997)
+scale = Vector2(0.12267658, 0.122676566)
+texture = ExtResource("2_gyfs4")

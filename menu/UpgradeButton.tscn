@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dpbufnh6sv4oi"]
 
-[ext_resource type="Texture2D" uid="uid://c6ttb1qpkyi1o" path="res://assets/shop_icons/lock.png" id="1_8m38a"]
+[ext_resource type="Texture2D" uid="uid://bujqwac33jf07" path="res://assets/shop_icons/lock.png" id="1_8m38a"]
 [ext_resource type="Script" uid="uid://c5n6dtjob843n" path="res://menu/UpgradeButton.gd" id="1_nnxha"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nnxha"]
@@ -29,6 +29,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_nnxha")
 z_index = 1
 layout_mode = 2
 text = "Description"
+fit_content = true
 scroll_active = false
 
 [node name="icon" type="TextureRect" parent="."]
@@ -70,6 +71,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_iv8a3")
 z_index = 1
 layout_mode = 2
 text = "Description"
+fit_content = true
 scroll_active = false
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
