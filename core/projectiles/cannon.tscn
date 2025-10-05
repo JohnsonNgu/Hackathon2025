@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://tqgky5r1hdnb"]
+
+[ext_resource type="Script" uid="uid://pusnp2eheou7" path="res://core/projectiles/projectile.gd" id="1_q3fk6"]
+[ext_resource type="Texture2D" uid="uid://deqaxmpdb8qw8" path="res://assets/Projectiles/cannonball_projectile.png" id="2_d0dg1"]
+[ext_resource type="Texture2D" uid="uid://cpk2jf6h6cjyy" path="res://assets/Projectiles/IMG_3217.png" id="3_d0dg1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uctmn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_d0dg1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_d0dg1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 0.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8q2pr"]
+radius = 23.996346
+height = 51.957176
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1pbr4"]
+radius = 0.01
+
+[node name="projectile" type="Node2D"]
+script = ExtResource("1_q3fk6")
+distance = 1000
+cooldown = 3.0
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_uctmn")
+flip_h = true
+
+[node name="lifetime" type="Timer" parent="."]
+
+[node name="hitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, 1.1920929e-07)
+rotation = -1.5882496
+shape = SubResource("CapsuleShape2D_8q2pr")
+
+[node name="aoe" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aoe"]
+position = Vector2(20, 0)
+shape = SubResource("CircleShape2D_1pbr4")
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

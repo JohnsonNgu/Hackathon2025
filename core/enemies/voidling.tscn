@@ -33,4 +33,8 @@ collision_layer = 0
 position = Vector2(22, -5)
 shape = SubResource("RectangleShape2D_rkbio")
 
+[node name="attack_timer" type="Timer" parent="."]
+wait_time = 2.0
+
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]

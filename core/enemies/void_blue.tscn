@@ -14,6 +14,7 @@ script = ExtResource("1_h5fnv")
 health = 15
 speed = 75
 gold_value = 40
+damage = 15
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_eg0da")
@@ -33,4 +34,8 @@ collision_layer = 0
 position = Vector2(181, 0)
 shape = SubResource("RectangleShape2D_rkbio")
 
+[node name="attack_timer" type="Timer" parent="."]
+wait_time = 4.0
+
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]

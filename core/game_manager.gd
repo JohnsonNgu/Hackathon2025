@@ -7,6 +7,8 @@ extends Node2D
 @export var void_red:PackedScene
 @export var void_blue:PackedScene
 
+signal enemy_hit(enemy:Node2D)
+
 #var player_money = 100
 enum Enemy_Type{FISH, VOIDLING, GRUB, SCUTTLE, RED, BLUE}
 var voidling_count = 0
@@ -64,6 +66,7 @@ func spawn_enemy():
 			printerr("ERROR: Incorrect enemy type random")
 	scene = decide_side(scene, offset)
 	scene.die.connect(enemy_death)
+	scene.attack.connect(enemy_attack)
 	get_tree().current_scene.get_node("Game_Manager").add_child(scene)
 	
 func decide_side(scene:Node, offset) -> Node:
@@ -90,3 +93,6 @@ func spawn_voidling(offset):
 
 func enemy_death(enemy:Node2D):
 	Shop.add_money(enemy.gold_value)
+
+func enemy_attack(enemy:Node2D):
+	emit_signal("enemy_hit", enemy)

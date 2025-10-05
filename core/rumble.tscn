@@ -15,6 +15,7 @@ script = ExtResource("1_vo1cb")
 flamethrower = ExtResource("2_u3d5i")
 harpoon = ExtResource("3_u3d5i")
 cannon = ExtResource("2_vo1cb")
+health = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ky1j2")
@@ -26,4 +27,8 @@ shape = SubResource("RectangleShape2D_n1fv5")
 unique_name_in_owner = true
 autostart = true
 
+[node name="flame_ring" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="timeout" from="weapon_cooldown" to="." method="_on_weapon_cooldown_timeout"]
+[connection signal="timeout" from="flame_ring" to="." method="_on_flame_ring_timeout"]

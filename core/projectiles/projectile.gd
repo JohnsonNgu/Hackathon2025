@@ -10,6 +10,7 @@ class_name Projectile
 @export var aoe_radius = .01
 @export var pierce = 1
 var direction = Vector2.RIGHT
+var player_fired = true
 
 const ENEMY_LAYER_MASK = 2
 var velocity
@@ -19,9 +20,9 @@ var hit_enemies = []
 func _ready() -> void:
 	await ready
 	get_node("aoe/CollisionShape2D").shape.radius = aoe_radius
-	look_at(get_global_mouse_position())
+	if (player_fired):
+		look_at(get_global_mouse_position())
 	velocity = direction.rotated(rotation) * initial_speed
-	
 	pass # Replace with function body.
 
 
